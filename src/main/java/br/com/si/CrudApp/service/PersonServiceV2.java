@@ -1,7 +1,7 @@
 package br.com.si.CrudApp.service;
 
-import br.com.si.CrudApp.model.PersonModelV1;
-import br.com.si.CrudApp.repository.PersonRepositoryV1;
+import br.com.si.CrudApp.model.PersonModelV2;
+import br.com.si.CrudApp.repository.PersonRepositoryV2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +12,28 @@ import java.util.Optional;
 public class PersonServiceV2 {
 
     @Autowired
-    private PersonRepositoryV1 repository;
+    private PersonRepositoryV2 repository;
 
-    public Optional<PersonModelV1> findById(long id){
+    public Optional<PersonModelV2> findById(long id){
         return repository.findById(id);
     }
 
-    public List<PersonModelV1> findAll(){
+    public List<PersonModelV2> findAll(){
         return repository.findAll();
     }
 
-    public PersonModelV1 save(PersonModelV1 model){
+    public PersonModelV2 save(PersonModelV2 model){
         return repository.save(model);
     }
 
-    public PersonModelV1 update(PersonModelV1 model){
-        Optional<PersonModelV1> p = repository.findById(model.getId());
+    public PersonModelV2 update(PersonModelV2 model){
+        Optional<PersonModelV2> p = repository.findById(model.getId());
         if(p.isPresent()){
             p.get().setFullName(model.getFullName());
             p.get().setEmail(model.getEmail());
             p.get().setGender(model.getGender());
+            p.get().setBirthDate(model.getBirthDate());
+            p.get().setCity(model.getCity());
             return repository.save(p.get());
         } else {
             return null;
@@ -39,13 +41,13 @@ public class PersonServiceV2 {
     }
 
     public void delete(long id){
-        Optional<PersonModelV1> p = repository.findById(id);
+        Optional<PersonModelV2> p = repository.findById(id);
         if(p.isPresent()){
             repository.delete(p.get());
         }
     }
 
-    public List<PersonModelV1> findByName(String name){
+    public List<PersonModelV2> findByName(String name){
         return repository.findByFullNameContainsIgnoreCaseOrderByFullName(name);
     }
 
