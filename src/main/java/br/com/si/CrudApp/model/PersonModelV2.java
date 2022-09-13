@@ -6,12 +6,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "people")
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonModel {
+public class PersonModelV2 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,14 @@ public class PersonModel {
     @Column(nullable = false, length = 1)
     @Setter @Getter
     private String gender;
+
+    @Column(name = "birth_date", nullable = true)
+    @Getter @Setter
+    private Date birthDate;
+
+    @Column(name = "city")
+    @Getter @Setter
+    private String city;
 
 
 }

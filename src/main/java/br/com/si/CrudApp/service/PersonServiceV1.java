@@ -1,7 +1,7 @@
 package br.com.si.CrudApp.service;
 
-import br.com.si.CrudApp.model.PersonModel;
-import br.com.si.CrudApp.repository.PersonRepository;
+import br.com.si.CrudApp.model.PersonModelV1;
+import br.com.si.CrudApp.repository.PersonRepositoryV1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,25 +9,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PersonService {
+public class PersonServiceV1 {
 
     @Autowired
-    private PersonRepository repository;
+    private PersonRepositoryV1 repository;
 
-    public Optional<PersonModel> findById(long id){
+    public Optional<PersonModelV1> findById(long id){
         return repository.findById(id);
     }
 
-    public List<PersonModel> findAll(){
+    public List<PersonModelV1> findAll(){
         return repository.findAll();
     }
 
-    public PersonModel save(PersonModel model){
+    public PersonModelV1 save(PersonModelV1 model){
         return repository.save(model);
     }
 
-    public PersonModel update(PersonModel model){
-        Optional<PersonModel> p = repository.findById(model.getId());
+    public PersonModelV1 update(PersonModelV1 model){
+        Optional<PersonModelV1> p = repository.findById(model.getId());
         if(p.isPresent()){
             p.get().setFullName(model.getFullName());
             p.get().setEmail(model.getEmail());
@@ -39,13 +39,13 @@ public class PersonService {
     }
 
     public void delete(long id){
-        Optional<PersonModel> p = repository.findById(id);
+        Optional<PersonModelV1> p = repository.findById(id);
         if(p.isPresent()){
             repository.delete(p.get());
         }
     }
 
-    public List<PersonModel> findByName(String name){
+    public List<PersonModelV1> findByName(String name){
         return repository.findByFullNameContainsIgnoreCaseOrderByFullName(name);
     }
 

@@ -1,7 +1,7 @@
 package br.com.si.CrudApp.controller;
 
-import br.com.si.CrudApp.model.PersonModel;
-import br.com.si.CrudApp.service.PersonService;
+import br.com.si.CrudApp.model.PersonModelV1;
+import br.com.si.CrudApp.service.PersonServiceV1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,28 +11,28 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/person")
-public class PersonController {
+public class PersonControllerV1 {
 
     @Autowired
-    private PersonService service;
+    private PersonServiceV1 service;
 
     @GetMapping("/{id}")
-    public Optional<PersonModel> findById(@PathVariable("id") long id){
+    public Optional<PersonModelV1> findById(@PathVariable("id") long id){
         return service.findById(id);
     }
 
     @PostMapping
-    public PersonModel save(@RequestBody PersonModel model){
+    public PersonModelV1 save(@RequestBody PersonModelV1 model){
         return service.save(model);
     }
 
     @GetMapping
-    public List<PersonModel> findAll(){
+    public List<PersonModelV1> findAll(){
         return service.findAll();
     }
 
     @PutMapping
-    public PersonModel update(@RequestBody PersonModel model){
+    public PersonModelV1 update(@RequestBody PersonModelV1 model){
         return service.update(model);
     }
 
@@ -43,7 +43,7 @@ public class PersonController {
     }
 
     @GetMapping("/find/name/{name}")
-    public List<PersonModel> findByName(@PathVariable("name") String name){
+    public List<PersonModelV1> findByName(@PathVariable("name") String name){
         return service.findByName(name);
     }
 
