@@ -2,6 +2,9 @@ package br.com.si.CrudApp.controller;
 
 import br.com.si.CrudApp.model.PersonModelV2;
 import br.com.si.CrudApp.service.PersonServiceV2;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,13 +14,15 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/person/v2")
+@Api(value = "Person Controller Version 2.0")
 public class PersonControllerV2 {
 
     @Autowired
     private PersonServiceV2 service;
 
     @GetMapping("/{id}")
-    public Optional<PersonModelV2> findById(@PathVariable("id") long id){
+    @ApiOperation(value = "Get a person by id", produces = "JSON", response = PersonModelV2.class)
+    public Optional<PersonModelV2> findById(@ApiParam(name = "id", required = true) @PathVariable("id") long id){
         return service.findById(id);
     }
 
