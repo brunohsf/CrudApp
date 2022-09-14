@@ -14,40 +14,40 @@ public class PersonServiceV2 {
     @Autowired
     private PersonRepositoryV2 repository;
 
-    public Optional<PersonModelV2> findById(long id){
+    public Optional<PersonModelV2> findById(long id) {
         return repository.findById(id);
     }
 
-    public List<PersonModelV2> findAll(){
+    public List<PersonModelV2> findAll() {
         return repository.findAll();
     }
 
-    public PersonModelV2 save(PersonModelV2 model){
+    public PersonModelV2 save(PersonModelV2 model) {
         return repository.save(model);
     }
 
-    public PersonModelV2 update(PersonModelV2 model){
+    public PersonModelV2 update(PersonModelV2 model) {
         Optional<PersonModelV2> p = repository.findById(model.getId());
-        if(p.isPresent()){
+        if (p.isPresent()) {
             p.get().setFullName(model.getFullName());
             p.get().setEmail(model.getEmail());
             p.get().setGender(model.getGender());
             p.get().setBirthDate(model.getBirthDate());
             p.get().setCity(model.getCity());
             return repository.save(p.get());
-        } else {
-            return null;
         }
+        return null;
+
     }
 
-    public void delete(long id){
+    public void delete(long id) {
         Optional<PersonModelV2> p = repository.findById(id);
-        if(p.isPresent()){
+        if (p.isPresent()) {
             repository.delete(p.get());
         }
     }
 
-    public List<PersonModelV2> findByName(String name){
+    public List<PersonModelV2> findByName(String name) {
         return repository.findByFullNameContainsIgnoreCaseOrderByFullName(name);
     }
 
